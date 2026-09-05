@@ -1,0 +1,13 @@
+<form class="{{cssClass}} imintoyou-item-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <input name="name" type="text" value="{{item.name}}" placeholder="Nome do Item" />
+  </header>
+  <section class="sheet-body">
+    <label>Descrição</label>
+    <textarea name="system.descricao">{{system.descricao}}</textarea>
+
+    <label>Quantidade</label>
+    <input type="number" name="system.quantidade" value="{{system.quantidade}}" min="0" />
+  </section>
+</form>

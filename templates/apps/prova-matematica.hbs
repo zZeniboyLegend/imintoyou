@@ -1,0 +1,18 @@
+<div class="imintoyou-prova-corpo">
+  <div class="imintoyou-prova-cabecalho">
+    <span>Nível {{nivel}} — {{pontuacao}} pontos</span>
+    <span class="imintoyou-prova-timer">{{tempoRestante}}s</span>
+  </div>
+
+  <div class="imintoyou-matematica-vidas">
+    {{#each (range 1 vidas) as |v|}}❤️{{/each}}
+  </div>
+
+  <div class="imintoyou-matematica-equacao">{{equacao.texto}}</div>
+
+  <div class="imintoyou-matematica-opcoes">
+    {{#each equacao.opcoes as |op|}}
+      <button type="button" class="imintoyou-opcao-numero" data-valor="{{op}}">{{op}}</button>
+    {{/each}}
+  </div>
+</div>

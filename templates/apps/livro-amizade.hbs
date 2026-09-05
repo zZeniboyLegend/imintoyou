@@ -1,0 +1,21 @@
+{{#if semLivro}}
+<p class="hint">O Mestre ainda não criou o Livro da Amizade neste mundo. Peça pra ele rodar o botão "📷 Importar Livro da Amizade" no diretório de Journals.</p>
+{{else}}
+<div class="imintoyou-livro-toolbar">
+  <input type="text" class="imintoyou-nova-legenda" placeholder="Legenda da lembrança..." />
+  <button type="button" class="imintoyou-btn-add-polaroid">📷 Adicionar Lembrança</button>
+</div>
+
+<div class="imintoyou-livro-grade">
+  {{#each polaroides as |p|}}
+    <div class="imintoyou-polaroid-card" data-id="{{p.id}}">
+      <span class="imintoyou-polaroid-apagar" title="Apagar">✖</span>
+      <img src="{{p.imagem}}" alt="{{p.legenda}}" />
+      <p class="imintoyou-polaroid-legenda">{{p.legenda}}</p>
+      <p class="imintoyou-polaroid-rodape">{{p.autor}} — {{p.data}}</p>
+    </div>
+  {{else}}
+    <p class="hint">Nenhuma lembrança guardada ainda. Sejam os primeiros a colar uma foto aqui!</p>
+  {{/each}}
+</div>
+{{/if}}

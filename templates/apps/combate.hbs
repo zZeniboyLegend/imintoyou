@@ -1,0 +1,108 @@
+<form class="imintoyou-confronto-form">
+
+  <div class="confronto-selecao">
+    <div>
+      <label>🗡️ Atacante</label>
+      <select name="atacanteId">
+        <option value="">-- selecione --</option>
+        {{#each actors as |a|}}
+          <option value="{{a.id}}" {{#if (eq a.id ../atacanteId)}}selected{{/if}}>{{a.name}} ({{a.type}})</option>
+        {{/each}}
+      </select>
+    </div>
+    <div>
+      <label>🛡️ Defensor</label>
+      <select name="defensorId">
+        <option value="">-- selecione --</option>
+        {{#each actors as |a|}}
+          <option value="{{a.id}}" {{#if (eq a.id ../defensorId)}}selected{{/if}}>{{a.name}} ({{a.type}})</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+
+  {{#if atacante}}{{#if defensor}}
+
+    <div class="confronto-barras">
+      <div class="confronto-barra">
+        <strong>{{atacante.name}}</strong>
+        <span>Vitalidade: {{atacante.system.status.vitalidade.value}} / {{atacante.system.status.vitalidade.max}}</span>
+      </div>
+      <div class="confronto-barra">
+        <strong>{{defensor.name}}</strong>
+        <span>Vitalidade: {{defensor.system.status.vitalidade.value}} / {{defensor.system.status.vitalidade.max}}</span>
+      </div>
+    </div>
+
+    <div class="confronto-acoes">
+      <fieldset>
+        <legend>Ataque do Atacante</legend>
+        <select name="tipoAtaque">
+          <option value="socoDireto" {{#if (eq tipoAtaque "socoDireto")}}selected{{/if}}>Briga / Soco Direto</option>
+          <option value="objeto" {{#if (eq tipoAtaque "objeto")}}selected{{/if}}>Ataque com Objeto Improvisado</option>
+        </select>
+
+        {{#if (eq tipoAtaque "socoDireto")}}
+          <select name="socoModo">
+            <option value="forcaBruta" {{#if (eq socoModo "forcaBruta")}}selected{{/if}}>Força Bruta</option>
+            <option value="agilidade" {{#if (eq socoModo "agilidade")}}selected{{/if}}>Agilidade (golpe rápido)</option>
+          </select>
+        {{else}}
+          <select name="objetoTipo">
+            {{#each objetos as |o key|}}
+              <option value="{{key}}" {{#if (eq key ../objetoTipo)}}selected{{/if}}>{{o.label}}</option>
+            {{/each}}
+          </select>
+          <select name="objetoTalento">
+            <option value="esportes" {{#if (eq objetoTalento "esportes")}}selected{{/if}}>Esportes</option>
+            <option value="forcaBruta" {{#if (eq objetoTalento "forcaBruta")}}selected{{/if}}>Força Bruta</option>
+          </select>
+        {{/if}}
+      </fieldset>
+
+      <fieldset>
+        <legend>Defesa do Defensor</legend>
+        <select name="posturaDefesa">
+          <option value="esquiva" {{#if (eq posturaDefesa "esquiva")}}selected{{/if}}>Esquiva (Atletismo + Agilidade)</option>
+          <option value="bloqueio" {{#if (eq posturaDefesa "bloqueio")}}selected{{/if}}>Bloqueio / Absorção (Vigor + Resistência)</option>
+        </select>
+        <p class="hint">Empate ou vitória do defensor = golpe esquivado/amortecido, sem dano.</p>
+      </fieldset>
+    </div>
+
+    <div class="confronto-botoes">
+      <button type="button" class="imintoyou-resolver-rodada" {{#if encerrado}}disabled{{/if}}>🥊 Resolver Rodada</button>
+      <button type="button" class="imintoyou-reiniciar-confronto">🔄 Reiniciar</button>
+    </div>
+
+    <div class="confronto-botoes">
+      <button type="button" class="imintoyou-primeiros-socorros">🩹 Primeiros Socorros (Atacante cura Defensor)</button>
+      <button type="button" class="imintoyou-noite-de-sono">😴 Noite de Sono (Defensor)</button>
+    </div>
+
+    {{#if encerrado}}
+      <div class="confronto-fim">
+        💀 <strong>{{mensagemFinal}}</strong>
+      </div>
+    {{/if}}
+
+    {{#if log.length}}
+      <div class="confronto-log">
+        <h3>Histórico da Cena</h3>
+        {{#each log as |e|}}
+          <div class="confronto-log-entry {{#if e.acertou}}acertou{{else}}falhou{{/if}}">
+            <strong>Rodada {{e.rodada}}</strong> — {{e.descricaoAtaque}} ({{e.rollAtaqueTotal}}) vs {{e.posturaLabel}} ({{e.rollDefesaTotal}}):
+            {{#if e.acertou}}Acertou{{else}}Falhou{{/if}}
+            {{#if e.dano}}<br/>💥 {{e.dano}} de dano em {{e.defensorNome}}{{#if e.danoCritico}} (CRÍTICO){{/if}}{{/if}}
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+  {{else}}
+    <p class="hint">Selecione o Defensor para começar.</p>
+  {{/if}}{{else}}
+    <p class="hint">Selecione o Atacante para começar.</p>
+  {{/if}}
+
+</form>

@@ -1,0 +1,107 @@
+{
+  "Actor": {
+    "types": ["personagem", "npc"],
+    "templates": {
+      "caracteristicas": {
+        "characteristics": {
+          "presenca": { "value": 0, "label": "IMINTOYOU.Presenca" },
+          "sagacidade": { "value": 0, "label": "IMINTOYOU.Sagacidade" },
+          "estilo": { "value": 0, "label": "IMINTOYOU.Estilo" },
+          "vigor": { "value": 0, "label": "IMINTOYOU.Vigor" },
+          "atletismo": { "value": 0, "label": "IMINTOYOU.Atletismo" },
+          "empatia": { "value": 0, "label": "IMINTOYOU.Empatia" }
+        }
+      },
+      "talentos": {
+        "talents": {
+          "presenca": { "labia": 0, "intimidacao": 0, "performance": 0, "provocacao": 0 },
+          "sagacidade": { "investigacao": 0, "conhecimento": 0, "malandragem": 0, "percepcao": 0 },
+          "estilo": { "postura": 0, "seducaoSutil": 0, "furtividadeSocial": 0, "autocontrole": 0 },
+          "vigor": { "resistencia": 0, "tolerancia": 0, "recuperacao": 0, "folego": 0 },
+          "atletismo": { "esportes": 0, "agilidade": 0, "forcaBruta": 0, "manobraCorporal": 0 },
+          "empatia": { "intuicaoSocial": 0, "acolhimento": 0, "deteccaoMentira": 0, "mediacao": 0 }
+        }
+      },
+      "statusVitais": {
+        "status": {
+          "vitalidade": { "value": 10, "max": 10 },
+          "conflitoInterno": { "value": 0, "max": 10 },
+          "reputacao": { "value": 0, "max": 10 }
+        }
+      },
+      "progressao": {
+        "nivel": { "value": 1 },
+        "xp": { "value": 0 },
+        "hype": { "value": 0 },
+        "pontosTalentoLivres": 0,
+        "pontosCaracteristicaLivres": 0,
+        "especializacoesDisponiveis": 0,
+        "bonusVitalidadeAcumulado": 0,
+        "bonusConflitoAcumulado": 0,
+        "dadoHypeD8": false
+      }
+    },
+    "personagem": {
+      "templates": ["caracteristicas", "talentos", "statusVitais", "progressao"],
+      "tribo": {
+        "nome": "",
+        "rival": "",
+        "habilidades": []
+      },
+      "segredoConfidencial": {
+        "texto": ""
+      },
+      "vinculos": [],
+      "background": {
+        "historico": "",
+        "sonho": "",
+        "medo": "",
+        "aparencia": "",
+        "estiloVisual": ""
+      },
+      "especializacoes": []
+    },
+    "npc": {
+      "templates": ["caracteristicas", "talentos", "statusVitais"],
+      "papel": ""
+    }
+  },
+  "Item": {
+    "types": ["tribo", "vinculo", "segredo", "especializacao", "item"],
+    "templates": {},
+    "tribo": {
+      "descricao": "",
+      "visaoDeFora": "",
+      "vitalidadeBase": 10,
+      "conflitoInternoBase": 10,
+      "reputacaoBase": 0,
+      "triboRival": "",
+      "bonusTalento": "",
+      "habilidades": {
+        "nivel1": { "nome": "", "descricao": "" },
+        "nivel4": { "nome": "", "descricao": "" },
+        "nivel7": { "nome": "", "descricao": "" },
+        "nivel9": { "nome": "", "descricao": "" }
+      }
+    },
+    "vinculo": {
+      "alvo": "",
+      "descricao": "",
+      "escalaAfeto": 0,
+      "tipo": "amizade"
+    },
+    "segredo": {
+      "texto": "",
+      "revelado": false
+    },
+    "especializacao": {
+      "talentoBase": "",
+      "nome": "",
+      "descricao": ""
+    },
+    "item": {
+      "descricao": "",
+      "quantidade": 1
+    }
+  }
+}

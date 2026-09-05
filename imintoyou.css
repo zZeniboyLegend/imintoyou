@@ -1,0 +1,1920 @@
+/* ============================================================
+   I'M INTO YOU — TEMA VISUAL
+   Conceito: página de caderno espiral dos anos 2000. Papel creme
+   pautado, foto tipo polaroide, fita washi, post-its, carimbo de
+   nota — a estética da capa do livro (Made with Gamma) trazida
+   pro Foundry.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap");
+
+.imintoyou {
+  --iy-paper: #f7f1e2;
+  --iy-paper-line: #b9cfe6;
+  --iy-margin: #e2a3ad;
+  --iy-ink: #2e2a25;
+  --iy-ink-soft: #6b6255;
+  --iy-pink: #e85d9c;
+  --iy-pink-dark: #b23e73;
+  --iy-denim: #3b5a78;
+  --iy-denim-dark: #274257;
+  --iy-mustard: #e8b33d;
+  --iy-mint: #8fc7b0;
+  --iy-red: #b23a3a;
+  --iy-tape: #fbe28f;
+  --iy-font-display: "Permanent Marker", cursive;
+  --iy-font-hand: "Caveat", cursive;
+  --iy-font-body: "Nunito", sans-serif;
+}
+
+.imintoyou .window-content {
+  background: var(--iy-paper);
+  font-family: var(--iy-font-body);
+  color: var(--iy-ink);
+}
+
+/* ------------------------------------------------------------
+   A "espiral do caderno" — elemento de assinatura, presente em
+   toda janela do sistema (ficha, item, Confronto).
+   ------------------------------------------------------------ */
+.imintoyou-sheet,
+.imintoyou-item-sheet,
+.imintoyou-confronto-form {
+  position: relative;
+  padding: 10px 14px 14px 34px;
+  background:
+    repeating-linear-gradient(
+      var(--iy-paper) 0px,
+      var(--iy-paper) 27px,
+      var(--iy-paper-line) 28px
+    );
+  background-attachment: local;
+  min-height: 100%;
+}
+
+.imintoyou-sheet::before,
+.imintoyou-item-sheet::before,
+.imintoyou-confronto-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 26px;
+  background:
+    radial-gradient(circle at 13px 16px, var(--iy-paper) 5px, transparent 5.5px),
+    linear-gradient(90deg, transparent 12px, #d8cba8 12px, #d8cba8 14px, transparent 14px),
+    #cbbd93;
+  background-size: 26px 30px, 100% 100%, 100% 100%;
+  box-shadow: inset -3px 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.imintoyou-sheet::after,
+.imintoyou-item-sheet::after,
+.imintoyou-confronto-form::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 30px;
+  bottom: 0;
+  width: 2px;
+  background: var(--iy-margin);
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------
+   Tipografia geral
+   ------------------------------------------------------------ */
+.imintoyou-sheet h2,
+.imintoyou-sheet h3,
+.imintoyou-item-sheet h3,
+.imintoyou-confronto-form h3 {
+  font-family: var(--iy-font-display);
+  color: var(--iy-pink-dark);
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  margin: 10px 0 6px;
+}
+
+.imintoyou-sheet label,
+.imintoyou-item-sheet label {
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--iy-denim-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.imintoyou-sheet input[type="text"],
+.imintoyou-sheet input[type="number"],
+.imintoyou-sheet textarea,
+.imintoyou-sheet select,
+.imintoyou-item-sheet input[type="text"],
+.imintoyou-item-sheet input[type="number"],
+.imintoyou-item-sheet textarea,
+.imintoyou-item-sheet select {
+  font-family: var(--iy-font-body);
+  background: #fffdf7;
+  border: 1px solid #d8cba8;
+  border-radius: 5px;
+  color: var(--iy-ink);
+  padding: 3px 6px;
+}
+
+.imintoyou-sheet .hint,
+.imintoyou-item-sheet .hint {
+  font-family: var(--iy-font-hand);
+  font-size: 1rem;
+  color: var(--iy-ink-soft);
+}
+
+/* ------------------------------------------------------------
+   Cabeçalho — polaroide + nome em marcador + carimbo de nível
+   ------------------------------------------------------------ */
+.imintoyou-sheet .sheet-header {
+  display: flex;
+  gap: 18px;
+  align-items: flex-end;
+  border-bottom: 2px dashed var(--iy-pink);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.imintoyou-sheet .polaroid {
+  background: #fff;
+  padding: 8px 8px 22px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+  transform: rotate(-3deg);
+  flex-shrink: 0;
+}
+
+.imintoyou-sheet .polaroid .profile-img {
+  width: 144px;
+  height: 144px;
+  object-fit: cover;
+  display: block;
+  border: none;
+  border-radius: 0;
+}
+
+.imintoyou-sheet .header-fields {
+  flex: 1;
+}
+
+.imintoyou-sheet .header-fields input[name="name"] {
+  font-family: var(--iy-font-display);
+  font-size: 1.7rem;
+  color: var(--iy-ink);
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.imintoyou-sheet .tribo-nivel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  font-family: var(--iy-font-hand);
+  font-size: 1.1rem;
+  color: var(--iy-denim-dark);
+}
+
+.imintoyou-sheet .grade-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 2px solid var(--iy-red);
+  color: var(--iy-red);
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  justify-content: center;
+  transform: rotate(-8deg);
+  font-family: var(--iy-font-display);
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.imintoyou-sheet .grade-stamp input {
+  width: 24px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-family: var(--iy-font-display);
+  color: var(--iy-red);
+  font-size: 1rem;
+  padding: 0;
+}
+
+/* Fita washi do chip de Tribo */
+.imintoyou-sheet .tribo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--iy-tape);
+  border: none;
+  clip-path: polygon(3% 0, 100% 0, 97% 100%, 0% 100%);
+  padding: 3px 12px;
+  font-family: var(--iy-font-hand);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--iy-ink);
+  transform: rotate(-2deg);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+.imintoyou-sheet .tribo-chip img {
+  border: none;
+  border-radius: 50%;
+}
+
+.imintoyou-sheet .imintoyou-remover-tribo {
+  color: var(--iy-red);
+  margin-left: 4px;
+}
+
+.imintoyou-sheet .tribo-vazia {
+  font-family: var(--iy-font-hand);
+  font-size: 1.15rem;
+  color: var(--iy-ink-soft);
+  border: 2px dashed #d8cba8;
+  border-radius: 6px;
+  padding: 14px;
+  display: block;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Abas — tipo divisórias de fichário
+   ------------------------------------------------------------ */
+.imintoyou-sheet .sheet-tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  border-bottom: 3px solid var(--iy-denim);
+}
+
+.imintoyou-sheet .sheet-tabs .item {
+  font-family: var(--iy-font-hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 4px 14px 6px;
+  background: #e6dcc0;
+  color: var(--iy-ink-soft);
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #d8cba8;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.imintoyou-sheet .sheet-tabs .item.active {
+  background: var(--iy-denim);
+  color: #fff;
+  transform: translateY(2px);
+}
+
+/* ------------------------------------------------------------
+   Status — post-its coloridos
+   ------------------------------------------------------------ */
+.imintoyou-sheet .status-bars {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 14px 0 6px;
+}
+
+.imintoyou-sheet .status-item {
+  background: var(--iy-mustard);
+  border: none;
+  border-radius: 2px;
+  padding: 8px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+  min-width: 90px;
+}
+
+.imintoyou-sheet .status-item:nth-of-type(1) { background: var(--iy-mustard); transform: rotate(-2deg); }
+.imintoyou-sheet .status-item:nth-of-type(2) { background: #f2a6b8; transform: rotate(1.5deg); }
+.imintoyou-sheet .status-item:nth-of-type(3) { background: var(--iy-mint); transform: rotate(-1deg); }
+.imintoyou-sheet .status-item:nth-of-type(4) { background: #b9d6f2; transform: rotate(2deg); }
+
+.imintoyou-sheet .status-item label {
+  font-family: var(--iy-font-hand);
+  font-size: 1rem;
+  color: var(--iy-ink);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.imintoyou-sheet .status-item input {
+  width: 38px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.imintoyou-sheet .max-value {
+  font-family: var(--iy-font-display);
+  opacity: 0.75;
+}
+
+/* ------------------------------------------------------------
+   Características — carimbos circulares de nota
+   ------------------------------------------------------------ */
+.imintoyou-sheet .characteristics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.imintoyou-sheet .characteristic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.imintoyou-sheet .characteristic-badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid var(--iy-denim);
+  background: #fffdf7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.imintoyou-sheet .characteristic:hover .characteristic-badge {
+  border-color: var(--iy-pink);
+  box-shadow: 0 0 0 4px rgba(232, 93, 156, 0.25);
+}
+
+.imintoyou-sheet .characteristic-badge input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-family: var(--iy-font-display);
+  font-size: 1.3rem;
+  color: var(--iy-denim-dark);
+  padding: 0;
+}
+
+.imintoyou-sheet .characteristic label {
+  font-family: var(--iy-font-hand);
+  font-size: 1.05rem;
+  color: var(--iy-ink);
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.imintoyou-sheet button.imintoyou-iniciar-confronto {
+  margin: 14px 0 4px;
+  width: 100%;
+  background: repeating-linear-gradient(135deg, var(--iy-red), var(--iy-red) 8px, #9c2f2f 8px, #9c2f2f 16px);
+  color: #fff;
+  font-family: var(--iy-font-display);
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.imintoyou-sheet button.imintoyou-iniciar-confronto:hover {
+  filter: brightness(1.08);
+}
+
+.imintoyou-sheet button.imintoyou-iniciar-combate {
+  margin: 4px 0;
+  width: 100%;
+  background: repeating-linear-gradient(135deg, var(--iy-denim), var(--iy-denim) 8px, var(--iy-denim-dark) 8px, var(--iy-denim-dark) 16px);
+  color: #fff;
+  font-family: var(--iy-font-display);
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.imintoyou-sheet button.imintoyou-iniciar-combate:hover {
+  filter: brightness(1.1);
+}
+
+.imintoyou-ferimento {
+  margin-top: 6px;
+  background: #ffe9c7;
+  border: 1px dashed #c98a2b;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+}
+
+.imintoyou-sheet button.imintoyou-manha-seguinte {
+  margin: 6px 0 4px;
+  width: 100%;
+  background: linear-gradient(135deg, #f5d38a, #e8b33d);
+  color: var(--iy-ink);
+  font-family: var(--iy-font-display);
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.imintoyou-sheet button.imintoyou-manha-seguinte:hover {
+  filter: brightness(1.05);
+}
+
+.imintoyou-sheet button.imintoyou-chamado-holofote {
+  margin: 4px 0;
+  width: 100%;
+  background: linear-gradient(135deg, #c98a2b, #e8b33d);
+  color: #2b2b2b;
+  font-family: var(--iy-font-display);
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.imintoyou-sheet button.imintoyou-chamado-holofote:hover {
+  filter: brightness(1.05);
+}
+
+.imintoyou-holofote {
+  font-family: "Nunito", sans-serif;
+  background: #fff4da;
+  border: 2px dashed #c98a2b;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.imintoyou-holofote h3 {
+  font-family: "Permanent Marker", cursive;
+  color: #b23e73;
+  font-weight: normal;
+  margin: 0 0 4px;
+}
+
+.imintoyou-holofote .hint {
+  font-size: 0.85rem;
+  color: #6b6255;
+}
+
+.imintoyou-manha-seguinte {
+  font-family: "Nunito", sans-serif;
+  border-left: 4px solid var(--iy-mint, #8fc7b0);
+  padding: 4px 8px;
+}
+
+.imintoyou-manha-seguinte.falhou {
+  border-left-color: var(--iy-mustard, #e8b33d);
+}
+
+.imintoyou-manha-seguinte .hint {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* ------------------------------------------------------------
+   Talentos — lista tipo checklist de agenda
+   ------------------------------------------------------------ */
+.imintoyou-sheet fieldset,
+.imintoyou-sheet .npc-talent-grupo {
+  border: none;
+  border-top: 2px solid var(--iy-denim);
+  border-radius: 0;
+  padding: 4px 0 8px;
+  margin-bottom: 6px;
+}
+
+.imintoyou-sheet fieldset legend,
+.imintoyou-sheet .npc-talent-grupo > strong {
+  font-family: var(--iy-font-display);
+  color: var(--iy-denim-dark);
+  font-size: 0.9rem;
+  padding: 0 6px 0 0;
+}
+
+.imintoyou-sheet .talent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dotted #d8cba8;
+  padding: 3px 4px;
+  cursor: pointer;
+}
+
+.imintoyou-sheet .talent:hover {
+  background: rgba(232, 93, 156, 0.1);
+}
+
+.imintoyou-sheet .talent label {
+  font-family: var(--iy-font-body);
+  font-weight: 600;
+  text-transform: none;
+  color: var(--iy-ink);
+}
+
+.imintoyou-sheet .talent input {
+  width: 36px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Tribo — cartões de habilidade tipo ficha de estudo
+   ------------------------------------------------------------ */
+.imintoyou-sheet .habilidade-tribo {
+  background: #fffdf7;
+  border: 1px solid #d8cba8;
+  border-left: 5px solid var(--iy-denim);
+  border-radius: 3px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.imintoyou-sheet .habilidade-tribo strong {
+  font-family: var(--iy-font-hand);
+  font-size: 1.2rem;
+  color: var(--iy-denim-dark);
+}
+
+/* ------------------------------------------------------------
+   Vínculos — cartões com cantinho de fita washi
+   ------------------------------------------------------------ */
+.imintoyou-sheet .vinculos-lista {
+  margin-top: 8px;
+}
+
+.imintoyou-sheet .vinculo-card {
+  position: relative;
+  background: #fffdf7;
+  border: 1px solid #d8cba8;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 12px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.imintoyou-sheet .vinculo-card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 16px;
+  width: 34px;
+  height: 16px;
+  background: var(--iy-tape);
+  opacity: 0.85;
+  transform: rotate(-4deg);
+}
+
+.imintoyou-sheet .vinculo-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.imintoyou-sheet .vinculo-cabecalho strong {
+  font-family: var(--iy-font-display);
+  font-size: 1rem;
+  color: var(--iy-pink-dark);
+}
+
+.imintoyou-sheet .vinculo-acoes {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.imintoyou-sheet .vinculo-acoes a {
+  cursor: pointer;
+  color: var(--iy-ink-soft);
+}
+
+.imintoyou-sheet .vinculo-acoes a:hover {
+  color: var(--iy-pink);
+}
+
+.imintoyou-sheet .vinculo-descricao {
+  font-family: var(--iy-font-hand);
+  font-size: 1.15rem;
+  color: var(--iy-ink);
+  margin: 4px 0;
+}
+
+.imintoyou-sheet .vinculo-escala {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f3e6c9;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.imintoyou-sheet .vinculo-escala a {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--iy-pink-dark);
+}
+
+.imintoyou-sheet .escala-valor {
+  font-family: var(--iy-font-body);
+  font-weight: 800;
+  min-width: 160px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.imintoyou-sheet .vinculo-bonus-elite {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  background: #fbe4ee;
+  border: 1px dashed var(--iy-pink);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.imintoyou-sheet .vinculo-bonus-elite ul {
+  margin: 4px 0 0 18px;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------
+   Efeitos Ativos — "adesivos"/curativos colados na ficha,
+   sempre visíveis logo abaixo do cabeçalho, em qualquer aba.
+   ------------------------------------------------------------ */
+.imintoyou-sheet .efeitos-ativos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 6px 0 10px;
+  border-bottom: 2px dashed var(--iy-pink);
+  margin-bottom: 6px;
+}
+
+.imintoyou-sheet .efeito-sticker {
+  position: relative;
+  width: 88px;
+  min-height: 74px;
+  padding: 6px 6px 5px;
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.35) 0 3px, transparent 3px 8px),
+    linear-gradient(160deg, #ffe082, var(--iy-mustard));
+  border: 2px dashed #c98a2b;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+
+/* Alterna a "inclinação" de cada adesivo, como se tivessem sido colados à mão */
+.imintoyou-sheet .efeito-sticker:nth-child(odd) { transform: rotate(-4deg); }
+.imintoyou-sheet .efeito-sticker:nth-child(even) { transform: rotate(3deg); }
+
+.imintoyou-sheet .efeito-sticker:hover {
+  transform: rotate(0deg) scale(1.08);
+  z-index: 2;
+}
+
+.imintoyou-sheet .efeito-sticker.permanente {
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.3) 0 3px, transparent 3px 8px),
+    linear-gradient(160deg, #f7a8c8, var(--iy-pink));
+  border-color: var(--iy-pink-dark);
+}
+
+.imintoyou-sheet .efeito-sticker img {
+  width: 22px;
+  height: 22px;
+  border: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.imintoyou-sheet .efeito-nome {
+  font-family: var(--iy-font-display);
+  font-size: 0.68rem;
+  line-height: 1.05;
+  color: #4a2e0d;
+}
+
+.imintoyou-sheet .efeito-sticker.permanente .efeito-nome {
+  color: #5c1633;
+}
+
+.imintoyou-sheet .efeito-duracao {
+  font-family: var(--iy-font-hand);
+  font-size: 0.85rem;
+  line-height: 1;
+  color: #6b4a10;
+  opacity: 0.85;
+}
+
+.imintoyou-sheet .efeito-sticker.permanente .efeito-duracao {
+  color: #7a2c46;
+}
+
+.imintoyou-sheet .imintoyou-efeito-remover {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--iy-red);
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.imintoyou-sheet .imintoyou-efeito-remover:hover {
+  background: #8a2626;
+}
+
+.imintoyou-sheet button.imintoyou-vinculo-criar {
+  margin-bottom: 8px;
+  font-family: var(--iy-font-hand);
+  font-size: 1.05rem;
+  background: var(--iy-mint);
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.imintoyou-sheet .habilidade-tribo.bloqueada {
+  opacity: 0.55;
+  border-left-color: #999;
+  background: #eee;
+}
+
+.imintoyou-sheet .habilidade-tribo.bloqueada strong {
+  color: var(--iy-ink-soft);
+  font-family: var(--iy-font-body);
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------
+   Progressão de Nível — carteirinha de "boletim escolar"
+   ------------------------------------------------------------ */
+.imintoyou-sheet .progressao-box {
+  margin-top: 16px;
+  background: #fffdf7;
+  border: 2px solid var(--iy-denim);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.imintoyou-sheet .progressao-box h3 {
+  margin-top: 0;
+}
+
+.imintoyou-sheet .progressao-xp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.imintoyou-sheet .progressao-xp input {
+  width: 60px;
+}
+
+.imintoyou-sheet .progressao-xp button.imintoyou-subir-nivel {
+  margin-left: auto;
+  font-family: var(--iy-font-hand);
+  font-size: 1.05rem;
+  background: var(--iy-mustard);
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.imintoyou-sheet .progressao-xp button.imintoyou-subir-nivel:disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+.imintoyou-sheet .progressao-pontos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  background: #fbe4ee;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.imintoyou-sheet .progressao-pontos select {
+  flex: 1;
+  min-width: 120px;
+}
+
+.imintoyou-sheet .progressao-pontos button {
+  font-family: var(--iy-font-body);
+  font-weight: 700;
+  background: var(--iy-pink);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.imintoyou-sheet .especializacoes-lista {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.imintoyou-sheet .especializacao-chip {
+  background: var(--iy-mint);
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-family: var(--iy-font-hand);
+  font-size: 1rem;
+}
+
+.imintoyou-sheet .especializacao-chip a {
+  color: var(--iy-ink);
+  cursor: pointer;
+}
+.imintoyou-item-sheet .sheet-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 2px dashed var(--iy-pink);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.imintoyou-item-sheet .profile-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  border: 2px solid var(--iy-denim);
+  object-fit: cover;
+}
+
+.imintoyou-item-sheet input[name="name"] {
+  font-family: var(--iy-font-display);
+  font-size: 1.3rem;
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.imintoyou-item-sheet textarea {
+  width: 100%;
+  min-height: 60px;
+}
+
+.imintoyou-item-sheet .grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.imintoyou-item-sheet fieldset {
+  border: 1px solid var(--iy-denim);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 6px;
+}
+
+.imintoyou-item-sheet fieldset legend {
+  font-family: var(--iy-font-display);
+  color: var(--iy-denim-dark);
+  padding: 0 4px;
+}
+
+/* Botão "Importar Tribos" no diretório de Items — segue o visual escuro padrão do Foundry */
+button.imintoyou-import-tribos {
+  flex-basis: 100%;
+  margin-top: 4px;
+}
+
+/* Botões de Tabelas Geradoras no diretório de Rollable Tables */
+button.imintoyou-import-tabelas,
+button.imintoyou-gerar-npc {
+  flex-basis: 100%;
+  margin-top: 4px;
+}
+
+/* Botões "Criar Personagem Guiado" e "Importar NPCs Prontos" no diretório de Atores */
+button.imintoyou-criar-personagem,
+button.imintoyou-importar-npcs {
+  flex-basis: 100%;
+  margin-top: 4px;
+}
+
+/* Botão "Importar Cenários" no diretório de Journal Entries */
+button.imintoyou-importar-cenarios {
+  flex-basis: 100%;
+  margin-top: 4px;
+}
+
+/* ------------------------------------------------------------
+   Páginas de Journal do Compêndio de Cenários
+   (o Journal não fica dentro de ".imintoyou", por isso os
+   seletores abaixo são globais de propósito)
+   ------------------------------------------------------------ */
+.imintoyou-cenario {
+  font-family: "Nunito", sans-serif;
+}
+
+.imintoyou-cenario .imintoyou-cenario-descricao {
+  font-family: "Caveat", cursive;
+  font-size: 1.3rem;
+  color: #4a443a;
+  border-left: 4px solid #e85d9c;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.imintoyou-cenario h3 {
+  font-family: "Permanent Marker", cursive;
+  color: #b23e73;
+  font-weight: normal;
+  font-size: 1.1rem;
+  margin: 14px 0 4px;
+}
+
+.imintoyou-cenario ul {
+  margin: 4px 0 0 20px;
+  padding: 0;
+}
+
+.imintoyou-cenario li {
+  margin-bottom: 6px;
+}
+
+/* ------------------------------------------------------------
+   Assistente de Criação de Personagem
+   ------------------------------------------------------------ */
+.imintoyou-wizard .wizard-progresso {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.imintoyou-wizard .wizard-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #d8cba8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #6b6255;
+  background: #fffdf7;
+}
+
+.imintoyou-wizard .wizard-dot.feito {
+  background: var(--iy-mint, #8fc7b0);
+  border-color: var(--iy-mint, #8fc7b0);
+  color: #fff;
+}
+
+.imintoyou-wizard .wizard-dot.ativo {
+  background: var(--iy-pink, #e85d9c);
+  border-color: var(--iy-pink-dark, #b23e73);
+  color: #fff;
+  transform: scale(1.15);
+}
+
+.imintoyou-wizard h2 {
+  text-align: center;
+  font-family: "Permanent Marker", cursive;
+  color: var(--iy-pink-dark, #b23e73);
+  font-weight: normal;
+  margin: 4px 0 10px;
+}
+
+.imintoyou-wizard .step-body {
+  min-height: 220px;
+}
+
+.imintoyou-wizard .wizard-contador {
+  font-family: "Caveat", cursive;
+  font-size: 1.15rem;
+  color: var(--iy-denim-dark, #274257);
+}
+
+.imintoyou-wizard .wizard-contador.erro {
+  color: #a33;
+  font-weight: 700;
+}
+
+.imintoyou-wizard .wizard-caracteristicas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.imintoyou-wizard .wizard-caracteristicas-grid input {
+  width: 100%;
+  text-align: center;
+}
+
+.imintoyou-wizard fieldset {
+  border: 1px solid var(--iy-denim, #3b5a78);
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+}
+
+.imintoyou-wizard fieldset legend {
+  font-family: "Permanent Marker", cursive;
+  font-size: 0.85rem;
+  color: var(--iy-denim-dark, #274257);
+}
+
+.imintoyou-wizard fieldset legend .erro {
+  color: #a33;
+  font-family: "Nunito", sans-serif;
+}
+
+.imintoyou-wizard .talent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.imintoyou-wizard .talent input {
+  width: 46px;
+  text-align: center;
+}
+
+.imintoyou-wizard .wizard-tribo-preview {
+  background: #fbe4ee;
+  border: 1px dashed var(--iy-pink, #e85d9c);
+  border-radius: 6px;
+  padding: 8px;
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+
+.imintoyou-wizard .wizard-botoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.imintoyou-wizard .imintoyou-wizard-voltar {
+  flex: 1;
+  font-family: "Nunito", sans-serif;
+}
+
+.imintoyou-wizard .imintoyou-wizard-proximo,
+.imintoyou-wizard .imintoyou-wizard-finalizar {
+  flex: 2;
+  font-family: "Permanent Marker", cursive;
+  letter-spacing: 1px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.imintoyou-wizard .imintoyou-wizard-proximo {
+  background: var(--iy-denim, #3b5a78);
+}
+
+.imintoyou-wizard .imintoyou-wizard-finalizar {
+  background: repeating-linear-gradient(135deg, var(--iy-pink, #e85d9c), var(--iy-pink, #e85d9c) 8px, var(--iy-pink-dark, #b23e73) 8px, var(--iy-pink-dark, #b23e73) 16px);
+}
+
+.imintoyou-wizard .imintoyou-wizard-proximo:disabled,
+.imintoyou-wizard .imintoyou-wizard-finalizar:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------
+   Ponto de Hype no chat
+   ------------------------------------------------------------ */
+.imintoyou-hype-wrapper {
+  margin-top: 6px;
+}
+
+button.imintoyou-hype-btn {
+  width: 100%;
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(135deg, #ff8fb1, #d68fb0);
+  color: #2b2b2b;
+  border: 1px solid #b25c82;
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+button.imintoyou-hype-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+button.imintoyou-hype-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.imintoyou-hype-usado {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #b25c82;
+}
+
+/* ------------------------------------------------------------
+   Janela de Confronto — clima de "versus", papel + fita
+   ------------------------------------------------------------ */
+.imintoyou-confronto-form label {
+  font-family: var(--iy-font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--iy-denim-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.imintoyou-confronto-form .confronto-selecao {
+  display: flex;
+  gap: 10px;
+}
+
+.imintoyou-confronto-form .confronto-selecao > div {
+  flex: 1;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.imintoyou-confronto-form .confronto-selecao > div:nth-child(1) {
+  border-left: 4px solid var(--iy-pink);
+  background: rgba(232, 93, 156, 0.08);
+}
+
+.imintoyou-confronto-form .confronto-selecao > div:nth-child(2) {
+  border-left: 4px solid var(--iy-denim);
+  background: rgba(59, 90, 120, 0.08);
+}
+
+.imintoyou-confronto-form select {
+  width: 100%;
+}
+
+.imintoyou-confronto-form .confronto-barras {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.imintoyou-confronto-form .confronto-barra {
+  flex: 1;
+  background: #fffdf7;
+  border: 1px solid #d8cba8;
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+  font-family: var(--iy-font-hand);
+  font-size: 1.1rem;
+}
+
+.imintoyou-confronto-form .confronto-barra:nth-child(1) { border-top: 4px solid var(--iy-pink); }
+.imintoyou-confronto-form .confronto-barra:nth-child(2) { border-top: 4px solid var(--iy-denim); }
+
+.imintoyou-confronto-form .confronto-acoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.imintoyou-confronto-form .confronto-acoes fieldset {
+  flex: 1;
+  border: 1px solid var(--iy-denim);
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.imintoyou-confronto-form .confronto-acoes legend {
+  font-family: var(--iy-font-display);
+  font-size: 0.85rem;
+  color: var(--iy-denim-dark);
+}
+
+.imintoyou-confronto-form .hint {
+  font-family: var(--iy-font-hand);
+  font-size: 1rem;
+  color: var(--iy-ink-soft);
+}
+
+.imintoyou-confronto-form .confronto-botoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.imintoyou-confronto-form .imintoyou-resolver-rodada {
+  flex: 2;
+  background: repeating-linear-gradient(135deg, var(--iy-red), var(--iy-red) 8px, #9c2f2f 8px, #9c2f2f 16px);
+  color: #fff;
+  font-family: var(--iy-font-display);
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.imintoyou-confronto-form .imintoyou-resolver-rodada:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.imintoyou-confronto-form .imintoyou-reiniciar-confronto {
+  flex: 1;
+  font-family: var(--iy-font-body);
+}
+
+.imintoyou-confronto-form .imintoyou-primeiros-socorros,
+.imintoyou-confronto-form .imintoyou-noite-de-sono {
+  flex: 1;
+  font-family: var(--iy-font-body);
+  font-weight: 700;
+  background: var(--iy-mint);
+  border: none;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.imintoyou-confronto-form .confronto-fim {
+  margin-top: 10px;
+  background: var(--iy-tape);
+  border: 2px dashed var(--iy-pink-dark);
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+  font-family: var(--iy-font-hand);
+  font-size: 1.15rem;
+}
+
+.imintoyou-confronto-form .confronto-log {
+  margin-top: 12px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.imintoyou-confronto-form .confronto-log-entry {
+  border-left: 4px solid #ccc;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  background: #fffdf7;
+}
+
+.imintoyou-confronto-form .confronto-log-entry.acertou {
+  border-left-color: var(--iy-mint);
+}
+
+.imintoyou-confronto-form .confronto-log-entry.falhou {
+  border-left-color: var(--iy-red);
+}
+
+.imintoyou-confronto-chat {
+  font-family: "Nunito", sans-serif;
+}
+
+.imintoyou-confronto-chat ul {
+  margin: 4px 0 0 18px;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------
+   Tabelas Geradoras (Cap. 6) — card de resultado no chat
+   O chat log não fica dentro de ".imintoyou", então estes
+   seletores são globais de propósito (só se aplicam quando este
+   sistema está ativo no mundo).
+   ------------------------------------------------------------ */
+.chat-message .table-draw {
+  font-family: "Nunito", sans-serif;
+  background: #fdf6ea;
+  border: 1px solid #d8cba8;
+  border-left: 5px solid #e85d9c;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.chat-message .table-draw .table-description {
+  font-family: "Caveat", cursive;
+  font-size: 1.1rem;
+  color: #6b6255;
+  margin-bottom: 4px;
+}
+
+.chat-message .table-draw .result-text {
+  font-weight: 600;
+  color: #2e2a25;
+}
+
+.chat-message .table-draw .results {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+.chat-message .table-draw .result-text strong {
+  color: #b23e73;
+  font-family: "Permanent Marker", cursive;
+  font-size: 0.95rem;
+  font-weight: normal;
+}
+
+.imintoyou-npc-gerado {
+  font-family: "Nunito", sans-serif;
+  background: #fdf6ea;
+  border: 1px solid #d8cba8;
+  border-left: 5px solid #3b5a78;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.imintoyou-npc-gerado h3 {
+  font-family: "Permanent Marker", cursive;
+  color: #b23e73;
+  font-weight: normal;
+  margin: 0 0 4px;
+}
+
+.imintoyou-npc-gerado .npc-nome {
+  font-family: "Caveat", cursive;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2e2a25;
+  margin: 0 0 6px;
+}
+
+.imintoyou-npc-gerado p {
+  margin: 3px 0;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   PROVAS DE AULA (Etapa 17)
+   ============================================================ */
+
+.imintoyou-aulas-form,
+.imintoyou-prova {
+  padding: 10px 4px;
+}
+
+.imintoyou-aulas-form .imintoyou-campo {
+  margin-bottom: 10px;
+}
+.imintoyou-aulas-form label {
+  display: block;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.1rem;
+  color: var(--iy-ink, #2e2a25);
+  margin-bottom: 2px;
+}
+.imintoyou-aulas-form select,
+.imintoyou-aulas-form input[type="number"] {
+  width: 100%;
+}
+
+.imintoyou-btn-iniciar-prova,
+.imintoyou-btn-confirmar,
+.imintoyou-btn-marcar {
+  background: var(--iy-pink, #e85d9c);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.imintoyou-btn-iniciar-prova:hover,
+.imintoyou-btn-confirmar:hover,
+.imintoyou-btn-marcar:hover {
+  filter: brightness(1.08);
+}
+
+.imintoyou-prova-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+.imintoyou-prova-timer {
+  font-weight: 700;
+  color: var(--iy-red, #b23a3a);
+}
+
+.imintoyou-prova-entregue {
+  text-align: center;
+  padding: 30px 10px;
+}
+.imintoyou-prova-entregue i {
+  font-size: 2.4rem;
+  color: var(--iy-mint, #8fc7b0);
+}
+.imintoyou-prova-entregue p {
+  font-family: var(--iy-font-display, "Permanent Marker", cursive);
+  font-size: 1.2rem;
+  margin: 8px 0 4px;
+}
+
+.imintoyou-prova-resultado .hint {
+  font-style: italic;
+  color: var(--iy-ink-soft, #6b6255);
+}
+
+/* --- Inglês --- */
+.imintoyou-ingles-grade {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.imintoyou-letra {
+  aspect-ratio: 1;
+  font-family: var(--iy-font-display, "Permanent Marker", cursive);
+  font-size: 1.2rem;
+  background: var(--iy-paper, #f7f1e2);
+  border: 2px solid var(--iy-denim, #3b5a78);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.imintoyou-ingles-palavra-atual {
+  text-align: center;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.6rem;
+  min-height: 1.6rem;
+  margin: 6px 0;
+}
+.imintoyou-ingles-acoes {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.imintoyou-chip {
+  display: inline-block;
+  background: var(--iy-tape, #fbe28f);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin: 2px;
+  font-size: 0.85rem;
+}
+
+/* --- Química --- */
+.imintoyou-quimica-receita-passos {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0 8px;
+}
+.imintoyou-passo {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--iy-denim, #3b5a78);
+}
+.imintoyou-passo.feito {
+  background: var(--iy-mint, #8fc7b0);
+  color: #fff;
+}
+.imintoyou-passo.pendente {
+  background: var(--iy-paper, #f7f1e2);
+}
+.imintoyou-bequer {
+  text-align: center;
+  font-size: 2.4rem;
+  margin: 6px 0;
+  transition: transform 0.15s ease;
+}
+.imintoyou-bequer.imintoyou-reacao-boa {
+  transform: scale(1.25);
+}
+.imintoyou-bequer.imintoyou-reacao-ruim {
+  transform: rotate(-6deg);
+  filter: grayscale(0.6);
+}
+.imintoyou-quimica-frascos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.imintoyou-frasco {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 4px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.imintoyou-btn-dica {
+  width: 100%;
+  background: var(--iy-mustard, #e8b33d);
+  border: none;
+  border-radius: 6px;
+  padding: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.imintoyou-btn-dica:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* --- Matemática --- */
+.imintoyou-matematica-vidas {
+  text-align: center;
+  margin-bottom: 6px;
+}
+.imintoyou-matematica-equacao {
+  text-align: center;
+  font-family: var(--iy-font-display, "Permanent Marker", cursive);
+  font-size: 1.6rem;
+  margin: 10px 0;
+}
+.imintoyou-matematica-opcoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.imintoyou-opcao-numero {
+  background: var(--iy-denim, #3b5a78);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.imintoyou-opcao-numero:hover {
+  filter: brightness(1.15);
+}
+
+/* --- Educação Física --- */
+.imintoyou-edfisica-nome {
+  text-align: center;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  margin: 0 0 8px;
+}
+.imintoyou-edfisica-barra {
+  position: relative;
+  height: 24px;
+  background: var(--iy-paper, #f7f1e2);
+  border: 2px solid var(--iy-denim, #3b5a78);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.imintoyou-zona-ok {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--iy-mustard, #e8b33d);
+  opacity: 0.6;
+}
+.imintoyou-zona-perfeita {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--iy-mint, #8fc7b0);
+  opacity: 0.9;
+}
+.imintoyou-marcador {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 4px;
+  background: var(--iy-red, #b23a3a);
+}
+.imintoyou-edfisica-resultados {
+  margin-top: 8px;
+  text-align: center;
+}
+.imintoyou-resultado-perfeito {
+  background: var(--iy-mint, #8fc7b0);
+  color: #fff;
+}
+.imintoyou-resultado-ok {
+  background: var(--iy-mustard, #e8b33d);
+}
+.imintoyou-resultado-errou {
+  background: var(--iy-red, #b23a3a);
+  color: #fff;
+}
+
+/* ============================================================
+   BOLETIM (Etapa 18)
+   ============================================================ */
+.imintoyou-envelope {
+  text-align: center;
+  padding: 50px 10px;
+}
+.imintoyou-envelope-selo {
+  font-size: 3rem;
+}
+.imintoyou-envelope p {
+  font-family: var(--iy-font-display, "Permanent Marker", cursive);
+  margin: 10px 0 16px;
+}
+.imintoyou-boletim-cartao {
+  background: var(--iy-paper, #f7f1e2);
+  border: 1px solid var(--iy-paper-line, #b9cfe6);
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+.imintoyou-boletim-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.3rem;
+}
+.imintoyou-selo-aprovado {
+  background: var(--iy-mint, #8fc7b0);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: var(--iy-font-body, "Nunito", sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.imintoyou-selo-risco {
+  background: var(--iy-mustard, #e8b33d);
+  color: #4a2e0d;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: var(--iy-font-body, "Nunito", sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.imintoyou-boletim-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.imintoyou-boletim-tabela th,
+.imintoyou-boletim-tabela td {
+  border: 1px solid var(--iy-paper-line, #b9cfe6);
+  padding: 3px 5px;
+  text-align: center;
+}
+.imintoyou-boletim-tabela th:first-child,
+.imintoyou-boletim-tabela td:first-child {
+  text-align: left;
+}
+.imintoyou-boletim-tabela td[data-nota="F"] { background: #f6c9c9; }
+.imintoyou-boletim-tabela td[data-nota="D"] { background: #f6e2c9; }
+.imintoyou-boletim-tabela td[data-nota="C"] { background: #f6f2c9; }
+.imintoyou-boletim-tabela td[data-nota="B"] { background: #d9f0c9; }
+.imintoyou-boletim-tabela td[data-nota="A"] { background: #c9ecf0; }
+.imintoyou-boletim-tabela td[data-nota="A+"] { background: #cdd8f6; font-weight: 700; }
+
+/* ============================================================
+   MURAL DE FOFOCAS
+   ============================================================ */
+.imintoyou-mural-toolbar {
+  margin-bottom: 8px;
+}
+.imintoyou-mural-quadro {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  background: repeating-linear-gradient(45deg, #6b4a2b, #6b4a2b 10px, #5c3f24 10px, #5c3f24 20px);
+  border: 6px solid #3f2c18;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.imintoyou-postit {
+  position: absolute;
+  width: 150px;
+  min-height: 110px;
+  padding: 6px;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35);
+  transform: rotate(-2deg);
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+}
+.imintoyou-postit-arrastar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: grab;
+  font-family: var(--iy-font-body, "Nunito", sans-serif);
+  font-size: 0.65rem;
+  color: #6b6255;
+  margin-bottom: 2px;
+}
+.imintoyou-postit-cor,
+.imintoyou-postit-apagar {
+  cursor: pointer;
+}
+.imintoyou-postit-texto {
+  width: 100%;
+  min-height: 78px;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.1rem;
+  color: #2e2a25;
+}
+.imintoyou-postit-texto:focus {
+  outline: none;
+}
+
+/* ============================================================
+   ARMÁRIO COM CADEADO
+   ============================================================ */
+.imintoyou-armario-instrucao {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.imintoyou-armario-dials {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.imintoyou-dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.imintoyou-dial-valor {
+  font-family: var(--iy-font-display, "Permanent Marker", cursive);
+  font-size: 1.6rem;
+  width: 40px;
+  text-align: center;
+  background: var(--iy-paper, #f7f1e2);
+  border: 2px solid var(--iy-denim, #3b5a78);
+  border-radius: 4px;
+}
+.imintoyou-dial-mais,
+.imintoyou-dial-menos {
+  background: var(--iy-denim, #3b5a78);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  cursor: pointer;
+}
+.imintoyou-btn-testar {
+  display: block;
+  margin: 0 auto;
+  background: var(--iy-pink, #e85d9c);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.imintoyou-armario-aberto {
+  text-align: center;
+  padding: 10px;
+}
+.imintoyou-armario-aberto i {
+  font-size: 2rem;
+  color: var(--iy-mint, #8fc7b0);
+}
+.imintoyou-armario-conteudo {
+  background: var(--iy-paper, #f7f1e2);
+  border: 1px dashed var(--iy-ink-soft, #6b6255);
+  padding: 10px;
+  margin-top: 10px;
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.2rem;
+}
+.imintoyou-armario-combinacao-inputs {
+  display: flex;
+  gap: 6px;
+}
+.imintoyou-armario-combinacao-inputs input {
+  width: 100%;
+  text-align: center;
+}
+
+/* ============================================================
+   LIVRO DA AMIZADE
+   ============================================================ */
+.imintoyou-livro-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.imintoyou-livro-toolbar input {
+  flex: 1;
+}
+.imintoyou-livro-toolbar button {
+  background: var(--iy-pink, #e85d9c);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.imintoyou-livro-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+.imintoyou-polaroid-card {
+  position: relative;
+  background: #fff;
+  padding: 8px 8px 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+  transform: rotate(-2deg);
+}
+.imintoyou-polaroid-card:nth-child(even) {
+  transform: rotate(2deg);
+}
+.imintoyou-polaroid-card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}
+.imintoyou-polaroid-legenda {
+  font-family: var(--iy-font-hand, "Caveat", cursive);
+  font-size: 1.1rem;
+  margin: 6px 0 2px;
+  text-align: center;
+  color: #2e2a25;
+}
+.imintoyou-polaroid-rodape {
+  font-size: 0.65rem;
+  color: #999;
+  text-align: center;
+  margin: 0;
+}
+.imintoyou-polaroid-apagar {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  cursor: pointer;
+  color: #b23a3a;
+  font-weight: 700;
+}

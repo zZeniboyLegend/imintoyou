@@ -1,0 +1,42 @@
+{{#unless aberto}}
+<div class="imintoyou-envelope">
+  <div class="imintoyou-envelope-selo">📜</div>
+  <p>Boletim Escolar — Ano Letivo</p>
+  <button type="button" class="imintoyou-btn-abrir-envelope">✉️ Abrir Envelope</button>
+</div>
+{{else}}
+<div class="imintoyou-boletim-tabela-wrap">
+  {{#each boletins as |b|}}
+    <div class="imintoyou-boletim-cartao">
+      <div class="imintoyou-boletim-cabecalho">
+        <strong>{{b.actor.name}}</strong>
+        {{#if b.aprovado}}
+          <span class="imintoyou-selo-aprovado">✅ APROVADO</span>
+        {{else}}
+          <span class="imintoyou-selo-risco">⚠️ Em risco ({{b.totalBoas}}/3 notas B+)</span>
+        {{/if}}
+      </div>
+      <table class="imintoyou-boletim-tabela">
+        <thead>
+          <tr>
+            <th>Matéria</th>
+            <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each materias as |label chave|}}
+            <tr>
+              <td>{{label}}</td>
+              {{#each (lookup ../b.materias chave) as |nota|}}
+                <td data-nota="{{nota}}">{{#if nota}}{{nota}}{{else}}—{{/if}}</td>
+              {{/each}}
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p class="hint">Nenhum personagem encontrado ainda.</p>
+  {{/each}}
+</div>
+{{/unless}}

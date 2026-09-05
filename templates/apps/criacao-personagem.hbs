@@ -1,0 +1,161 @@
+<form class="imintoyou-confronto-form imintoyou-wizard">
+
+  <div class="wizard-progresso">
+    {{#each (range 1 totalPassos) as |n|}}
+      <span class="wizard-dot {{#if (eq n ../passo)}}ativo{{/if}} {{#if (imintoyouGte ../passo n)}}feito{{/if}}">{{n}}</span>
+    {{/each}}
+  </div>
+
+  <h2>Passo {{passo}} de {{totalPassos}}: {{tituloPasso}}</h2>
+
+  <div class="step-body">
+
+    {{!-- PASSO 1 --}}
+    {{#if (eq passo 1)}}
+      <label>Nome do Personagem</label>
+      <input type="text" data-path="nome" value="{{dados.nome}}" placeholder="Ex: Newth Halloway" />
+
+      <label>Background (Histórico) — de onde ele vem? Qual a imagem pública que carrega?</label>
+      <textarea data-path="historico">{{dados.historico}}</textarea>
+
+      <label>Sonho / Ambição — o que ele quer alcançar antes da formatura?</label>
+      <textarea data-path="sonho">{{dados.sonho}}</textarea>
+
+      <label>Medo / Insegurança — o que tira o sono dele às 2h da manhã?</label>
+      <textarea data-path="medo">{{dados.medo}}</textarea>
+    {{/if}}
+
+    {{!-- PASSO 2 --}}
+    {{#if (eq passo 2)}}
+      <label>Aparência — postura, físico, cabelo, olhar</label>
+      <textarea data-path="aparencia">{{dados.aparencia}}</textarea>
+
+      <label>Estilo — roupas, acessórios, o que ele carrega consigo</label>
+      <textarea data-path="estiloVisual">{{dados.estiloVisual}}</textarea>
+
+      <label>Imagem do Token/Retrato (caminho ou URL — opcional, dá pra trocar depois na ficha)</label>
+      <input type="text" data-path="img" value="{{dados.img}}" />
+    {{/if}}
+
+    {{!-- PASSO 3 --}}
+    {{#if (eq passo 3)}}
+      <p class="hint">Distribua <strong>7 pontos</strong> entre as 6 Características. Mínimo 0, máximo 5 cada.</p>
+      <p class="wizard-contador {{#unless (eq pontosRestantes 0)}}erro{{/unless}}">Pontos restantes: <strong>{{pontosRestantes}}</strong></p>
+
+      <div class="wizard-caracteristicas-grid">
+        {{#each ordemCaracteristicas as |char|}}
+          <div>
+            <label>{{imintoyouCapitalize char}}</label>
+            <input type="number" min="0" max="5" data-path="caracteristicas.{{char}}" value="{{lookup ../dados.caracteristicas char}}" />
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{!-- PASSO 4 --}}
+    {{#if (eq passo 4)}}
+      <p class="hint">Para cada Característica, você tem pontos de Talento iguais ao valor dela. Nenhum Talento pode passar do valor da própria Característica.</p>
+
+      {{#each ordemCaracteristicas as |char|}}
+        <fieldset>
+          <legend>
+            {{imintoyouCapitalize char}} —
+            <span class="{{#if (lookup ../budgetEstouradoPorChar char)}}erro{{/if}}">
+              {{lookup ../usadoTalentoPorChar char}} / {{lookup ../budgetTalentoPorChar char}} pontos usados
+            </span>
+          </legend>
+          {{#each (lookup ../talentosPorCaracteristica char) as |talentKey|}}
+            <div class="talent">
+              <label>{{imintoyouCapitalize talentKey}}</label>
+              <input type="number" min="0" max="6" data-path="talentos.{{char}}.{{talentKey}}" value="{{lookup (lookup ../../dados.talentos char) talentKey}}" />
+            </div>
+          {{/each}}
+        </fieldset>
+      {{/each}}
+
+      {{#if algumTetoEstourado}}<p class="wizard-contador erro">⚠️ Algum Talento está maior que sua Característica — ajuste antes de avançar.</p>{{/if}}
+      {{#if algumBudgetEstourado}}<p class="wizard-contador erro">⚠️ Você gastou mais pontos de Talento do que tinha em algum grupo.</p>{{/if}}
+    {{/if}}
+
+    {{!-- PASSO 5 --}}
+    {{#if (eq passo 5)}}
+      {{#if tribos.length}}
+        <label>Tribo Social</label>
+        <select data-path="triboId">
+          <option value="">-- selecione --</option>
+          {{#each tribos as |t|}}
+            <option value="{{t.id}}" {{#if (eq t.id ../dados.triboId)}}selected{{/if}}>{{t.name}}</option>
+          {{/each}}
+        </select>
+
+        {{#if triboSelecionada}}
+          <div class="wizard-tribo-preview">
+            <p>{{triboSelecionada.system.descricao}}</p>
+            <p><strong>Rival:</strong> {{triboSelecionada.system.triboRival}}</p>
+            {{#if previaStatus}}
+              <p><strong>Vitalidade Máxima:</strong> {{previaStatus.vitalidade}} · <strong>Conflito Interno Máximo:</strong> {{previaStatus.conflitoInterno}} · <strong>Reputação Inicial:</strong> {{previaStatus.reputacao}}</p>
+            {{/if}}
+          </div>
+
+          {{#if bonusOpcoes}}
+            <label>Bônus de Talento da Tribo — como aplicar?</label>
+            <select data-path="bonusTalentoModo">
+              <option value="duo" {{#if (eq dados.bonusTalentoModo "duo")}}selected{{/if}}>+1 em cada um dos dois talentos</option>
+              <option value="mono" {{#if (eq dados.bonusTalentoModo "mono")}}selected{{/if}}>+2 só no primeiro talento</option>
+            </select>
+            <p class="hint">{{triboSelecionada.system.bonusTalento}}</p>
+          {{/if}}
+        {{/if}}
+      {{else}}
+        <p class="hint">⚠️ Nenhuma Tribo Social encontrada no mundo. Vá na aba <strong>Items</strong> e clique em "Importar Tribos (I'm Into You)" antes de continuar.</p>
+      {{/if}}
+    {{/if}}
+
+    {{!-- PASSO 6 --}}
+    {{#if (eq passo 6)}}
+      <fieldset>
+        <legend>Vínculo 1</legend>
+        <label>Com quem?</label>
+        <input type="text" data-path="vinculo1.alvo" value="{{dados.vinculo1.alvo}}" />
+        <label>Frase do Vínculo</label>
+        <textarea data-path="vinculo1.descricao">{{dados.vinculo1.descricao}}</textarea>
+        <label>Tipo</label>
+        <select data-path="vinculo1.tipo">
+          <option value="amizade" {{#if (eq dados.vinculo1.tipo "amizade")}}selected{{/if}}>Amizade</option>
+          <option value="romance" {{#if (eq dados.vinculo1.tipo "romance")}}selected{{/if}}>Romance</option>
+          <option value="rivalidade" {{#if (eq dados.vinculo1.tipo "rivalidade")}}selected{{/if}}>Rivalidade</option>
+          <option value="outro" {{#if (eq dados.vinculo1.tipo "outro")}}selected{{/if}}>Outro</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Vínculo 2</legend>
+        <label>Com quem?</label>
+        <input type="text" data-path="vinculo2.alvo" value="{{dados.vinculo2.alvo}}" />
+        <label>Frase do Vínculo</label>
+        <textarea data-path="vinculo2.descricao">{{dados.vinculo2.descricao}}</textarea>
+        <label>Tipo</label>
+        <select data-path="vinculo2.tipo">
+          <option value="amizade" {{#if (eq dados.vinculo2.tipo "amizade")}}selected{{/if}}>Amizade</option>
+          <option value="romance" {{#if (eq dados.vinculo2.tipo "romance")}}selected{{/if}}>Romance</option>
+          <option value="rivalidade" {{#if (eq dados.vinculo2.tipo "rivalidade")}}selected{{/if}}>Rivalidade</option>
+          <option value="outro" {{#if (eq dados.vinculo2.tipo "outro")}}selected{{/if}}>Outro</option>
+        </select>
+      </fieldset>
+
+      <label>Segredo Confidencial</label>
+      <textarea data-path="segredo">{{dados.segredo}}</textarea>
+    {{/if}}
+
+  </div>
+
+  <div class="wizard-botoes">
+    <button type="button" class="imintoyou-wizard-voltar" {{#if (eq passo 1)}}disabled{{/if}}>◀ Voltar</button>
+    {{#if (eq passo totalPassos)}}
+      <button type="button" class="imintoyou-wizard-finalizar">✅ Criar Personagem</button>
+    {{else}}
+      <button type="button" class="imintoyou-wizard-proximo" {{#unless podeAvancar}}disabled{{/unless}}>Próximo ▶</button>
+    {{/if}}
+  </div>
+
+</form>

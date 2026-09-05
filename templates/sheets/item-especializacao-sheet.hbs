@@ -1,0 +1,13 @@
+<form class="{{cssClass}} imintoyou-item-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <input name="name" type="text" value="{{item.name}}" placeholder="Nome da Especialização" />
+  </header>
+  <section class="sheet-body">
+    <label>Talento Base</label>
+    <input type="text" name="system.talentoBase" value="{{system.talentoBase}}" />
+
+    <label>Descrição / Bônus</label>
+    <textarea name="system.descricao">{{system.descricao}}</textarea>
+  </section>
+</form>

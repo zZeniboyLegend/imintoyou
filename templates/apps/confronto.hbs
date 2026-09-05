@@ -1,0 +1,95 @@
+<form class="imintoyou-confronto-form">
+
+  <div class="confronto-selecao">
+    <div>
+      <label>🗡️ Atacante (geralmente um PJ)</label>
+      <select name="atacanteId">
+        <option value="">-- selecione --</option>
+        {{#each actors as |a|}}
+          <option value="{{a.id}}" {{#if (eq a.id ../atacanteId)}}selected{{/if}}>{{a.name}} ({{a.type}})</option>
+        {{/each}}
+      </select>
+    </div>
+    <div>
+      <label>🛡️ Defensor (geralmente um NPC)</label>
+      <select name="defensorId">
+        <option value="">-- selecione --</option>
+        {{#each actors as |a|}}
+          <option value="{{a.id}}" {{#if (eq a.id ../defensorId)}}selected{{/if}}>{{a.name}} ({{a.type}})</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+
+  {{#if atacante}}{{#if defensor}}
+
+    <div class="confronto-barras">
+      <div class="confronto-barra">
+        <strong>{{atacante.name}}</strong>
+        <span>Conflito Interno: {{atacante.system.status.conflitoInterno.value}} / {{atacante.system.status.conflitoInterno.max}}</span>
+      </div>
+      <div class="confronto-barra">
+        <strong>{{defensor.name}}</strong>
+        <span>Conflito Interno: {{defensor.system.status.conflitoInterno.value}} / {{defensor.system.status.conflitoInterno.max}}</span>
+      </div>
+    </div>
+
+    <div class="confronto-acoes">
+      <fieldset>
+        <legend>Ação do Atacante</legend>
+        <select name="ataqueTipo">
+          {{#each ataques as |a key|}}
+            <option value="{{key}}" {{#if (eq key ../ataqueTipoAtual)}}selected{{/if}}>{{a.label}}</option>
+          {{/each}}
+        </select>
+        <select name="ataqueTalento">
+          {{#each talentoOptions as |t|}}
+            <option value="{{t}}" {{#if (eq t ../ataqueTalentoAtual)}}selected{{/if}}>{{imintoyouCapitalize t}}</option>
+          {{/each}}
+        </select>
+        <p class="hint">{{ataqueDescricaoAtual}}</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Postura de Defesa</legend>
+        <select name="posturaTipo">
+          {{#each posturas as |p key|}}
+            <option value="{{key}}" {{#if (eq key ../posturaTipoAtual)}}selected{{/if}}>{{p.label}}</option>
+          {{/each}}
+        </select>
+        <p class="hint">{{posturaDescricaoAtual}}</p>
+      </fieldset>
+    </div>
+
+    <div class="confronto-botoes">
+      <button type="button" class="imintoyou-resolver-rodada" {{#if encerrado}}disabled{{/if}}>⚔️ Resolver Rodada</button>
+      <button type="button" class="imintoyou-reiniciar-confronto">🔄 Reiniciar Confronto</button>
+    </div>
+
+    {{#if encerrado}}
+      <div class="confronto-fim">
+        🏁 <strong>Confronto encerrado!</strong> {{perdedor}} cedeu à pressão emocional. Vencedor: <strong>{{vencedor}}</strong>.
+      </div>
+    {{/if}}
+
+    {{#if log.length}}
+      <div class="confronto-log">
+        <h3>Histórico da Cena</h3>
+        {{#each log as |e|}}
+          <div class="confronto-log-entry {{#if e.sucesso}}acertou{{else}}falhou{{/if}}">
+            <strong>Rodada {{e.rodada}}</strong> — {{e.ataqueLabel}} ({{e.rollAtacanteTotal}}) vs {{e.posturaLabel}} ({{e.rollDefensorTotal}}):
+            {{#if e.sucesso}}Acertou{{else}}Falhou{{/if}}
+            {{#if e.dano}}<br/>💥 {{e.dano}} de dano em {{e.defensorNome}}{{/if}}
+            {{#if e.danoEmSiAtacante}}<br/>😰 {{e.danoEmSiAtacante}} de dano em {{e.atacanteNome}}{{/if}}
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+
+  {{else}}
+    <p class="hint">Selecione o Defensor para começar.</p>
+  {{/if}}{{else}}
+    <p class="hint">Selecione o Atacante para começar.</p>
+  {{/if}}
+
+</form>

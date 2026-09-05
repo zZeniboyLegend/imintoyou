@@ -1,0 +1,26 @@
+<div class="imintoyou-prova-corpo">
+  <div class="imintoyou-prova-cabecalho">
+    <span>Receitas completas: {{receitasCompletas}}</span>
+    <span class="imintoyou-prova-timer">{{tempoRestante}}s</span>
+  </div>
+
+  <div class="imintoyou-quimica-receita">
+    <strong>Receita da vez:</strong>
+    <div class="imintoyou-quimica-receita-passos">
+      {{#each receita as |passoId idx|}}
+        <span class="imintoyou-passo {{#if (imintoyouGte idx ../progresso.length)}}pendente{{else}}feito{{/if}}">{{passoId}}</span>
+      {{/each}}
+    </div>
+    {{#if dicaAtiva}}<p class="hint">Dica: próximo é o Composto {{dicaAtiva}}</p>{{/if}}
+  </div>
+
+  <div class="imintoyou-bequer">🧪</div>
+
+  <div class="imintoyou-quimica-frascos">
+    {{#each frascos as |f|}}
+      <button type="button" class="imintoyou-frasco" data-id="{{f.id}}" style="background:{{f.cor}}">{{f.rotulo}}</button>
+    {{/each}}
+  </div>
+
+  <button type="button" class="imintoyou-btn-dica" {{#unless dicasRestantes}}disabled{{/unless}}>💡 Usar dica ({{dicasRestantes}} restante(s))</button>
+</div>

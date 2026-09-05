@@ -1,0 +1,15 @@
+<form class="{{cssClass}} imintoyou-item-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <input name="name" type="text" value="{{item.name}}" placeholder="Rótulo do Segredo (não revela o conteúdo)" />
+  </header>
+  <section class="sheet-body">
+    <label>Texto do Segredo</label>
+    <textarea name="system.texto">{{system.texto}}</textarea>
+
+    <label>
+      <input type="checkbox" name="system.revelado" {{#if system.revelado}}checked{{/if}} />
+      Já foi revelado publicamente
+    </label>
+  </section>
+</form>

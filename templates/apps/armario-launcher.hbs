@@ -1,0 +1,30 @@
+<form class="imintoyou-armario-launcher-form">
+
+  <p class="hint">Abre o minigame do armário só na tela do jogador escolhido. Deixe a combinação em branco pra sortear uma aleatória.</p>
+
+  <div class="imintoyou-campo">
+    <label>Jogador</label>
+    <select name="actorId">
+      <option value="">-- selecione --</option>
+      {{#each personagens as |a|}}
+        <option value="{{a.id}}">{{a.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="imintoyou-campo">
+    <label>Combinação (opcional)</label>
+    <div class="imintoyou-armario-combinacao-inputs">
+      <input type="number" name="c1" min="0" max="9" placeholder="?" />
+      <input type="number" name="c2" min="0" max="9" placeholder="?" />
+      <input type="number" name="c3" min="0" max="9" placeholder="?" />
+    </div>
+  </div>
+
+  <div class="imintoyou-campo">
+    <label>Conteúdo revelado ao abrir</label>
+    <textarea name="conteudo" rows="3" placeholder="Ex: um bilhete rasgado que menciona..."></textarea>
+  </div>
+
+  <button type="button" class="imintoyou-btn-disparar-armario">🔒 Trancar e Disparar</button>
+</form>

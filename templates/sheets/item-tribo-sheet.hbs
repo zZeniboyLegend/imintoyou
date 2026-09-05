@@ -1,0 +1,49 @@
+<form class="{{cssClass}} imintoyou-item-sheet imintoyou-tribo-sheet" autocomplete="off">
+
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <input name="name" type="text" value="{{item.name}}" placeholder="Nome da Tribo" />
+  </header>
+
+  <section class="sheet-body">
+    <label>Descrição / Lema</label>
+    <textarea name="system.descricao">{{system.descricao}}</textarea>
+
+    <label>Visão de Fora</label>
+    <textarea name="system.visaoDeFora">{{system.visaoDeFora}}</textarea>
+
+    <div class="grid-3">
+      <div>
+        <label>Vitalidade Base</label>
+        <input type="number" name="system.vitalidadeBase" value="{{system.vitalidadeBase}}" />
+        <span class="hint">+ Vigor do personagem</span>
+      </div>
+      <div>
+        <label>Conflito Interno Base</label>
+        <input type="number" name="system.conflitoInternoBase" value="{{system.conflitoInternoBase}}" />
+        <span class="hint">+ Sagacidade do personagem</span>
+      </div>
+      <div>
+        <label>Reputação Inicial</label>
+        <input type="number" name="system.reputacaoBase" value="{{system.reputacaoBase}}" />
+        <span class="hint">+ Estilo do personagem</span>
+      </div>
+    </div>
+
+    <label>Tribo Rival</label>
+    <input type="text" name="system.triboRival" value="{{system.triboRival}}" />
+
+    <label>Bônus de Talento</label>
+    <input type="text" name="system.bonusTalento" value="{{system.bonusTalento}}" />
+    <span class="hint">Aplique manualmente na ficha do personagem (+1/+1 em dois talentos OU +2 em um só)</span>
+
+    <h3>Habilidades por Nível</h3>
+    {{#each system.habilidades as |hab key|}}
+      <fieldset>
+        <legend>{{key}}</legend>
+        <input type="text" name="system.habilidades.{{key}}.nome" value="{{hab.nome}}" placeholder="Nome da habilidade" />
+        <textarea name="system.habilidades.{{key}}.descricao">{{hab.descricao}}</textarea>
+      </fieldset>
+    {{/each}}
+  </section>
+</form>

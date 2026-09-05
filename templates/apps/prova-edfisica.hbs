@@ -1,0 +1,24 @@
+<div class="imintoyou-prova-corpo">
+  <div class="imintoyou-prova-cabecalho">
+    <span>Estação {{estacaoNumero}} / {{totalEstacoes}}</span>
+    <span>{{pontuacao}} pontos</span>
+  </div>
+
+  {{#if estacao}}
+    <h3 class="imintoyou-edfisica-nome">{{estacao.nome}}</h3>
+
+    <div class="imintoyou-edfisica-barra">
+      <div class="imintoyou-zona-ok" style="left:{{estacao.zonaOk.[0]}}%; width:calc({{estacao.zonaOk.[1]}}% - {{estacao.zonaOk.[0]}}%)"></div>
+      <div class="imintoyou-zona-perfeita" style="left:{{estacao.zonaPerfeita.[0]}}%; width:calc({{estacao.zonaPerfeita.[1]}}% - {{estacao.zonaPerfeita.[0]}}%)"></div>
+      <div class="imintoyou-marcador" style="left:0%"></div>
+    </div>
+
+    <button type="button" class="imintoyou-btn-marcar">⏱️ Marcar!</button>
+  {{/if}}
+
+  <div class="imintoyou-edfisica-resultados">
+    {{#each resultados as |r|}}
+      <span class="imintoyou-chip imintoyou-resultado-{{r.resultado}}">{{r.estacao}}: {{r.resultado}}</span>
+    {{/each}}
+  </div>
+</div>

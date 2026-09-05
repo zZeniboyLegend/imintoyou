@@ -1,0 +1,24 @@
+<div class="imintoyou-prova-corpo">
+  <div class="imintoyou-prova-cabecalho">
+    <span>Idioma: {{idioma}}</span>
+    <span class="imintoyou-prova-timer">{{tempoRestante}}s</span>
+  </div>
+
+  <div class="imintoyou-ingles-grade">
+    {{#each grade as |letra idx|}}
+      <button type="button" class="imintoyou-letra" data-idx="{{idx}}">{{letra}}</button>
+    {{/each}}
+  </div>
+
+  <div class="imintoyou-ingles-palavra-atual">{{palavraAtual}}</div>
+
+  <div class="imintoyou-ingles-acoes">
+    <button type="button" class="imintoyou-btn-limpar">Limpar</button>
+    <button type="button" class="imintoyou-btn-confirmar">Confirmar Palavra</button>
+  </div>
+
+  <div class="imintoyou-ingles-lista">
+    <strong>Palavras formadas ({{pontuacao}} pontos):</strong>
+    <div>{{#each palavrasValidadas}}<span class="imintoyou-chip">{{this}}</span>{{/each}}</div>
+  </div>
+</div>

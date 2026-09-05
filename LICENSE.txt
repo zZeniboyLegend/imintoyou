@@ -1,0 +1,17 @@
+Copyright (c) 2026 zZeniboy (Selo Dicebreakers). Todos os direitos reservados.
+
+Este repositório é disponibilizado publicamente apenas para fins de
+instalação e atualização do sistema "I'm Into You" no Foundry Virtual
+Tabletop, via URL de manifesto.
+
+Nenhuma parte deste código, conteúdo de regras, textos, dados ou qualquer
+outro material aqui presente pode ser copiado, redistribuído, modificado,
+sublicenciado, vendido ou utilizado para criar trabalhos derivados, no todo
+ou em parte, sem autorização prévia e por escrito do autor.
+
+O uso deste sistema em mesas de jogo (pessoais ou comerciais como Mestre)
+é permitido. A redistribuição do pacote fora do canal oficial de
+instalação (este repositório) não é permitida.
+
+Todos os direitos sobre o sistema "I'm Into You" e seu conteúdo são
+reservados ao autor.

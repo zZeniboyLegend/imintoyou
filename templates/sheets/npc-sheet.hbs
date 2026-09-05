@@ -1,0 +1,79 @@
+<form class="{{cssClass}} imintoyou-sheet" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="polaroid">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    </div>
+    <div class="header-fields">
+      <input name="name" type="text" value="{{actor.name}}" placeholder="Nome do NPC" />
+      <div class="tribo-nivel">
+        <span class="hint">{{system.papel}}</span>
+      </div>
+      <input type="text" name="system.papel" value="{{system.papel}}" placeholder="Papel na história (ex: Diretor, Rival, Melhor Amiga...)" style="margin-top:4px;" />
+    </div>
+  </header>
+
+  {{#if efeitosAtivos.length}}
+    <div class="efeitos-ativos">
+      {{#each efeitosAtivos as |ef|}}
+        <div class="efeito-sticker {{#if ef.permanente}}permanente{{/if}} imintoyou-efeito-abrir" data-effect-id="{{ef.id}}" title="Clique para editar — {{ef.name}}">
+          <a class="imintoyou-efeito-remover" title="Remover efeito">×</a>
+          <img src="{{ef.img}}" />
+          <span class="efeito-nome">{{ef.name}}</span>
+          {{#if ef.duracaoLabel}}<span class="efeito-duracao">{{ef.duracaoLabel}}</span>{{/if}}
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <section class="sheet-body">
+    <div class="status-bars">
+      <div class="status-item">
+        <label>Vitalidade</label>
+        <input type="number" name="system.status.vitalidade.value" value="{{system.status.vitalidade.value}}" />
+        / <input type="number" name="system.status.vitalidade.max" value="{{system.status.vitalidade.max}}" style="width:34px" />
+      </div>
+      <div class="status-item">
+        <label>Conflito Interno</label>
+        <input type="number" name="system.status.conflitoInterno.value" value="{{system.status.conflitoInterno.value}}" />
+        / <input type="number" name="system.status.conflitoInterno.max" value="{{system.status.conflitoInterno.max}}" style="width:34px" />
+      </div>
+      <div class="status-item">
+        <label>Reputação</label>
+        <input type="number" name="system.status.reputacao.value" value="{{system.status.reputacao.value}}" />
+        / <input type="number" name="system.status.reputacao.max" value="{{system.status.reputacao.max}}" style="width:34px" />
+      </div>
+    </div>
+
+    <div class="characteristics-grid">
+      {{#each system.characteristics as |char key|}}
+      <div class="characteristic rollable" data-characteristic="{{key}}" title="Clique para rolar 2d12 + {{key}}">
+        <span class="characteristic-badge">
+          <input type="number" name="system.characteristics.{{key}}.value" value="{{char.value}}" min="0" max="6" />
+        </span>
+        <label>{{imintoyouCapitalize key}}</label>
+      </div>
+      {{/each}}
+    </div>
+
+    <button type="button" class="imintoyou-iniciar-confronto">⚔️ Usar como Defensor em Confronto</button>
+    <button type="button" class="imintoyou-iniciar-combate">🥊 Usar como Defensor em Combate Físico</button>
+    <button type="button" class="imintoyou-chamado-holofote">🎬 Chamado do Holofote (-5 Reputação)</button>
+    <p class="hint">💡 Shift+clique numa rolagem de Presença ou Estilo para queimar Reputação como Impulso Social Imediato.</p>
+
+    <fieldset>
+      <legend>Talentos</legend>
+      {{#each system.talents as |grupo charKey|}}
+        <div class="npc-talent-grupo">
+          <strong>{{imintoyouCapitalize charKey}}</strong>
+          {{#each grupo as |valor talentKey|}}
+            <div class="talent rollable" data-characteristic="{{charKey}}" data-talent="{{talentKey}}" title="Clique para rolar 2d12 + {{charKey}} + {{talentKey}}">
+              <label>{{imintoyouCapitalize talentKey}}</label>
+              <input type="number" name="system.talents.{{charKey}}.{{talentKey}}" value="{{valor}}" min="0" max="6" />
+            </div>
+          {{/each}}
+        </div>
+      {{/each}}
+    </fieldset>
+  </section>
+</form>

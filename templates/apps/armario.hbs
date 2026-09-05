@@ -1,0 +1,22 @@
+<div class="imintoyou-armario-corpo">
+  {{#unless aberto}}
+    <p class="imintoyou-armario-instrucao">Gire os discos e tente a combinação certa.</p>
+    <div class="imintoyou-armario-dials">
+      {{#each dials as |v idx|}}
+        <div class="imintoyou-dial">
+          <button type="button" class="imintoyou-dial-mais" data-idx="{{idx}}">▲</button>
+          <div class="imintoyou-dial-valor">{{v}}</div>
+          <button type="button" class="imintoyou-dial-menos" data-idx="{{idx}}">▼</button>
+        </div>
+      {{/each}}
+    </div>
+    <button type="button" class="imintoyou-btn-testar">🔓 Testar Combinação</button>
+    <p class="hint">Tentativas: {{tentativas}}</p>
+  {{else}}
+    <div class="imintoyou-armario-aberto">
+      <i class="fa-solid fa-lock-open"></i>
+      <p>O armário abriu!</p>
+      <div class="imintoyou-armario-conteudo">{{conteudo}}</div>
+    </div>
+  {{/unless}}
+</div>

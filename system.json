@@ -1,0 +1,49 @@
+{
+  "id": "imintoyou",
+  "title": "I'm Into You",
+  "description": "Sistema de RPG de mesa slice of life ambientado em High School/College nos anos 2000, com mecânica 2d12 + Característica + Talento. Criado por Lucas 'zZeniboy' (Selo Dicebreakers).",
+  "version": "1.0.2",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "13",
+    "maximum": "13"
+  },
+  "authors": [
+    {
+      "name": "zZeniboy",
+      "flags": {}
+    }
+  ],
+  "esmodules": ["imintoyou.js"],
+  "styles": ["imintoyou.css"],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "status.vitalidade",
+  "secondaryTokenAttribute": "status.conflitoInterno",
+  "background": "systems/imintoyou/assets/capa-sistema.webp",
+  "media": [
+    {
+      "type": "cover",
+      "url": "systems/imintoyou/assets/capa-sistema.webp"
+    }
+  ],
+  "url": "https://github.com/SEU_USUARIO/NOME_DO_REPO",
+  "manifest": "https://github.com/SEU_USUARIO/NOME_DO_REPO/releases/latest/download/system.json",
+  "download": "https://github.com/SEU_USUARIO/NOME_DO_REPO/releases/download/v1.0.2/imintoyou-v1.0.2.zip",
+  "license": "LICENSE.txt",
+  "readme": "https://github.com/SEU_USUARIO/NOME_DO_REPO/blob/main/README.md",
+  "bugs": "https://github.com/SEU_USUARIO/NOME_DO_REPO/issues"
+}

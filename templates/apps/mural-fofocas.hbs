@@ -1,0 +1,20 @@
+{{#if semMural}}
+<p class="hint">O Mestre ainda não criou o Mural de Fofocas neste mundo. Peça pra ele rodar o botão "📌 Importar Mural de Fofocas" no diretório de Journals.</p>
+{{else}}
+<div class="imintoyou-mural-toolbar">
+  <button type="button" class="imintoyou-btn-add-postit">➕ Novo Post-it</button>
+</div>
+
+<div class="imintoyou-mural-quadro">
+  {{#each notas as |nota|}}
+    <div class="imintoyou-postit" data-id="{{nota.id}}" style="left:{{nota.x}}%; top:{{nota.y}}%; background:{{nota.cor}};">
+      <div class="imintoyou-postit-arrastar">
+        <span class="imintoyou-postit-autor">{{nota.autor}}</span>
+        <span class="imintoyou-postit-cor" title="Trocar cor">🎨</span>
+        <span class="imintoyou-postit-apagar" title="Apagar">✖</span>
+      </div>
+      <textarea class="imintoyou-postit-texto">{{nota.texto}}</textarea>
+    </div>
+  {{/each}}
+</div>
+{{/if}}

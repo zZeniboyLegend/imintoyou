@@ -1,0 +1,44 @@
+<form class="imintoyou-aulas-form">
+
+  <p class="hint">Dispara a prova ao mesmo tempo na tela de cada jogador com um personagem atribuído. O resultado só chega pra você, sussurrado no chat.</p>
+
+  <div class="imintoyou-campo">
+    <label>Matéria</label>
+    <select name="materia">
+      {{#each materias as |label chave|}}
+        <option value="{{chave}}" {{#if (eq chave ../materiaAtual)}}selected{{/if}}>{{label}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  {{#if mostrarIdioma}}
+  <div class="imintoyou-campo">
+    <label>Idioma das palavras</label>
+    <select name="idioma">
+      <option value="pt" {{#if (eq idiomaAtual "pt")}}selected{{/if}}>Português</option>
+      <option value="en" {{#if (eq idiomaAtual "en")}}selected{{/if}}>Inglês</option>
+    </select>
+  </div>
+  {{/if}}
+
+  <div class="imintoyou-campo">
+    <label>Qual das 6 provas do ano é essa?</label>
+    <select name="provaNumero">
+      {{#each provasDoAno as |n|}}
+        <option value="{{n}}" {{#if (eq n ../provaNumero)}}selected{{/if}}>Prova {{n}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  {{#if mostrarDuracao}}
+  <div class="imintoyou-campo">
+    <label>Duração (segundos)</label>
+    <input type="number" name="duracao" value="{{duracaoSegundos}}" min="10" />
+  </div>
+  {{else}}
+  <p class="hint">Educação Física não usa duração corrida — são sempre 5 estações de 1 tentativa cada.</p>
+  {{/if}}
+
+  <button type="button" class="imintoyou-btn-iniciar-prova">📝 Iniciar Prova para Todos</button>
+  <button type="button" class="imintoyou-btn-ver-boletim">📊 Ver Boletim Completo</button>
+</form>

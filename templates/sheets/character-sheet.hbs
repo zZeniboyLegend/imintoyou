@@ -1,0 +1,239 @@
+<form class="{{cssClass}} imintoyou-sheet" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="polaroid">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    </div>
+    <div class="header-fields">
+      <input name="name" type="text" value="{{actor.name}}" placeholder="Nome do Personagem" />
+      <div class="tribo-nivel">
+        {{#if system.triboAtiva}}
+          <span class="tribo-chip">
+            <img src="{{system.triboAtiva.img}}" width="20" height="20" />
+            {{system.triboAtiva.name}}
+            <a class="imintoyou-remover-tribo" title="Remover Tribo"><i class="fas fa-times"></i></a>
+          </span>
+          <span>rival: {{system.triboAtiva.rival}}</span>
+        {{else}}
+          <span class="tribo-vazia">📎 arraste um Item de Tribo Social aqui para aplicar</span>
+        {{/if}}
+        <span class="grade-stamp">
+          Nv<input type="number" name="system.nivel.value" value="{{system.nivel.value}}" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  {{#if efeitosAtivos.length}}
+    <div class="efeitos-ativos">
+      {{#each efeitosAtivos as |ef|}}
+        <div class="efeito-sticker {{#if ef.permanente}}permanente{{/if}} imintoyou-efeito-abrir" data-effect-id="{{ef.id}}" title="Clique para editar — {{ef.name}}">
+          <a class="imintoyou-efeito-remover" title="Remover efeito">×</a>
+          <img src="{{ef.img}}" />
+          <span class="efeito-nome">{{ef.name}}</span>
+          {{#if ef.duracaoLabel}}<span class="efeito-duracao">{{ef.duracaoLabel}}</span>{{/if}}
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="principal">📓 Principal</a>
+    <a class="item" data-tab="talentos">⚡ Talentos</a>
+    <a class="item" data-tab="tribo">🏫 Tribo</a>
+    <a class="item" data-tab="social">💌 Vínculos &amp; Segredo</a>
+  </nav>
+
+  <section class="sheet-body">
+
+    <div class="tab principal" data-group="primary" data-tab="principal">
+
+      <div class="status-bars">
+        <div class="status-item">
+          <label>Vitalidade</label>
+          <input type="number" name="system.status.vitalidade.value" value="{{system.status.vitalidade.value}}" />
+          / <span class="max-value">{{system.status.vitalidade.max}}</span>
+        </div>
+        <div class="status-item">
+          <label>Conflito Interno</label>
+          <input type="number" name="system.status.conflitoInterno.value" value="{{system.status.conflitoInterno.value}}" />
+          / <span class="max-value">{{system.status.conflitoInterno.max}}</span>
+        </div>
+        <div class="status-item">
+          <label>Reputação</label>
+          <input type="number" name="system.status.reputacao.value" value="{{system.status.reputacao.value}}" />
+          / <span class="max-value">{{system.status.reputacao.max}}</span>
+        </div>
+        <div class="status-item">
+          <label>Pontos de Hype</label>
+          <input type="number" name="system.hype.value" value="{{system.hype.value}}" />
+        </div>
+      </div>
+
+      <div class="characteristics-grid">
+        {{#each system.characteristics as |char key|}}
+        <div class="characteristic rollable" data-characteristic="{{key}}" title="Clique para rolar 2d12 + {{key}}">
+          <span class="characteristic-badge">
+            <input type="number" name="system.characteristics.{{key}}.value" value="{{char.value}}" min="0" max="6" />
+          </span>
+          <label>{{imintoyouCapitalize key}}</label>
+        </div>
+        {{/each}}
+      </div>
+      <p class="hint">💡 Shift+clique numa rolagem de Presença ou Estilo para queimar Reputação como Impulso Social Imediato (Cap. 3.6).</p>
+
+      <button type="button" class="imintoyou-iniciar-confronto">⚔️ Iniciar Confronto</button>
+      <button type="button" class="imintoyou-iniciar-combate">🥊 Iniciar Combate Físico</button>
+      <button type="button" class="imintoyou-manha-seguinte">🌅 Rodar Manhã Seguinte</button>
+      <button type="button" class="imintoyou-chamado-holofote">🎬 Chamado do Holofote (-5 Reputação)</button>
+
+      <div class="progressao-box">
+        <h3>🎓 Progressão — {{faseAtual}}</h3>
+        <div class="progressao-xp">
+          <label>XP</label>
+          <input type="number" name="system.xp.value" value="{{system.xp.value}}" />
+          {{#if system.xpProximoNivel}}
+            <span class="hint">/ {{system.xpProximoNivel}} para o Nível {{system.nivel.value}}{{!-- +1 calculado no JS --}}</span>
+          {{else}}
+            <span class="hint">Nível máximo atingido!</span>
+          {{/if}}
+          <button type="button" class="imintoyou-subir-nivel" {{#unless podeSubirNivel}}disabled{{/unless}}>⬆️ Subir de Nível</button>
+        </div>
+
+        {{#if system.pontosTalentoLivres}}
+          <div class="progressao-pontos">
+            <span class="hint">{{system.pontosTalentoLivres}} Ponto(s) de Talento livre(s):</span>
+            <select name="gastoTalento">
+              {{#each talentoOptions as |t|}}
+                <option value="{{t.value}}">{{t.label}}</option>
+              {{/each}}
+            </select>
+            <button type="button" class="imintoyou-gastar-talento">Aplicar</button>
+          </div>
+        {{/if}}
+
+        {{#if system.pontosCaracteristicaLivres}}
+          <div class="progressao-pontos">
+            <span class="hint">{{system.pontosCaracteristicaLivres}} Ponto(s) de Característica:</span>
+            <select name="gastoCaracteristica">
+              {{#each caracteristicaOptions as |c|}}
+                <option value="{{c.value}}">{{c.label}}</option>
+              {{/each}}
+            </select>
+            <button type="button" class="imintoyou-gastar-caracteristica">Aplicar</button>
+          </div>
+        {{/if}}
+
+        {{#if system.especializacoesDisponiveis}}
+          <div class="progressao-pontos">
+            <span class="hint">{{system.especializacoesDisponiveis}} Especialização(ões) de Talento disponível(is):</span>
+            <button type="button" class="imintoyou-criar-especializacao">✨ Criar Especialização</button>
+          </div>
+        {{/if}}
+
+        {{#if system.dadoHypeD8}}
+          <p class="hint">🔥 Dado de Hype: 1d8 (Nível 5+)</p>
+        {{/if}}
+
+        {{#if especializacoes.length}}
+          <div class="especializacoes-lista">
+            {{#each especializacoes as |e|}}
+              <span class="especializacao-chip" data-item-id="{{e.id}}">
+                <a class="imintoyou-especializacao-abrir">✨ {{e.name}}{{#if e.talentoBase}} ({{e.talentoBase}}){{/if}}</a>
+              </span>
+            {{/each}}
+          </div>
+        {{/if}}
+      </div>
+
+    </div>
+
+    <div class="tab talentos" data-group="primary" data-tab="talentos">
+      {{#each system.talents as |grupo charKey|}}
+        <fieldset>
+          <legend>{{imintoyouCapitalize charKey}}</legend>
+          {{#each grupo as |valor talentKey|}}
+            <div class="talent rollable" data-characteristic="{{charKey}}" data-talent="{{talentKey}}" title="Clique para rolar 2d12 + {{charKey}} + {{talentKey}}">
+              <label>{{imintoyouCapitalize talentKey}}</label>
+              <input type="number" name="system.talents.{{charKey}}.{{talentKey}}" value="{{valor}}" min="0" max="6" />
+            </div>
+          {{/each}}
+        </fieldset>
+      {{/each}}
+    </div>
+
+    <div class="tab tribo" data-group="primary" data-tab="tribo">
+      {{#if system.triboAtiva}}
+        <h2>{{system.triboAtiva.name}}</h2>
+        <p><strong>Tribo Rival:</strong> {{system.triboAtiva.rival}}</p>
+        <p><strong>Bônus de Talento:</strong> {{system.triboAtiva.bonusTalento}}</p>
+
+        <h3>Habilidades</h3>
+        {{#each habilidadesTribo as |hab|}}
+          <div class="habilidade-tribo {{#unless hab.desbloqueada}}bloqueada{{/unless}}">
+            {{#if hab.desbloqueada}}
+              <strong>{{hab.nome}}</strong>
+              <span class="hint">(destravada no Nível {{hab.nivelRequerido}})</span>
+              <p>{{hab.descricao}}</p>
+            {{else}}
+              <strong><i class="fas fa-lock"></i> {{hab.nome}}</strong>
+              <span class="hint">destrava no Nível {{hab.nivelRequerido}}</span>
+            {{/if}}
+          </div>
+        {{/each}}
+      {{else}}
+        <p class="tribo-vazia">📎 Nenhuma Tribo Social aplicada ainda. Arraste um Item de Tribo (aba Itens do mundo) para cima da ficha.</p>
+      {{/if}}
+    </div>
+
+    <div class="tab social" data-group="primary" data-tab="social">
+      <h3>Vínculos</h3>
+      <button type="button" class="imintoyou-vinculo-criar"><i class="fas fa-plus"></i> Novo Vínculo</button>
+
+      <div class="vinculos-lista">
+        {{#each vinculos as |v|}}
+          <div class="vinculo-card" data-item-id="{{v.id}}">
+            <div class="vinculo-cabecalho">
+              <strong>{{v.name}}</strong>
+              {{#if v.alvo}}<span class="hint">com {{v.alvo}}</span>{{/if}}
+              <span class="vinculo-acoes">
+                <a class="imintoyou-vinculo-editar" title="Editar"><i class="fas fa-edit"></i></a>
+                <a class="imintoyou-vinculo-excluir" title="Excluir"><i class="fas fa-trash"></i></a>
+              </span>
+            </div>
+            {{#if v.descricao}}<p class="vinculo-descricao">"{{v.descricao}}"</p>{{/if}}
+            <div class="vinculo-escala">
+              <a class="imintoyou-vinculo-descer" title="Quebra de Confiança (-1)"><i class="fas fa-caret-left"></i></a>
+              <span class="escala-valor">{{v.escalaAfeto}} — {{v.label}}</span>
+              <a class="imintoyou-vinculo-subir" title="Gesto de Vulnerabilidade (+1)"><i class="fas fa-caret-right"></i></a>
+            </div>
+            {{#if v.bonusElite}}
+              <div class="vinculo-bonus-elite">
+                <strong>🔓 {{v.bonusElite.titulo}}</strong>
+                <ul>
+                  {{#each v.bonusElite.itens as |texto|}}
+                    <li>{{texto}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            {{/if}}
+          </div>
+        {{else}}
+          <p class="tribo-vazia">💌 Nenhum vínculo criado ainda.</p>
+        {{/each}}
+      </div>
+
+      <h3>Segredo Confidencial</h3>
+      <textarea name="system.segredoConfidencial.texto">{{system.segredoConfidencial.texto}}</textarea>
+
+      <h3>Background</h3>
+      <label>Histórico</label>
+      <textarea name="system.background.historico">{{system.background.historico}}</textarea>
+      <label>Sonho</label>
+      <textarea name="system.background.sonho">{{system.background.sonho}}</textarea>
+      <label>Medo</label>
+      <textarea name="system.background.medo">{{system.background.medo}}</textarea>
+    </div>
+
+  </section>
+</form>

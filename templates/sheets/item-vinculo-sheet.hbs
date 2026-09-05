@@ -1,0 +1,25 @@
+<form class="{{cssClass}} imintoyou-item-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <input name="name" type="text" value="{{item.name}}" placeholder="Nome do Vínculo" />
+  </header>
+  <section class="sheet-body">
+    <label>Personagem Alvo</label>
+    <input type="text" name="system.alvo" value="{{system.alvo}}" placeholder="Com quem é o vínculo?" />
+
+    <label>Descrição (frase carregada de intenção)</label>
+    <textarea name="system.descricao">{{system.descricao}}</textarea>
+
+    <label>Tipo de Vínculo</label>
+    <select name="system.tipo">
+      <option value="amizade" {{#if (eq system.tipo "amizade")}}selected{{/if}}>Amizade</option>
+      <option value="romance" {{#if (eq system.tipo "romance")}}selected{{/if}}>Romance</option>
+      <option value="rivalidade" {{#if (eq system.tipo "rivalidade")}}selected{{/if}}>Rivalidade</option>
+      <option value="outro" {{#if (eq system.tipo "outro")}}selected{{/if}}>Outro</option>
+    </select>
+    <span class="hint">Define qual Bônus de Elite se aplica quando o Vínculo chega em +3 ou -3.</span>
+
+    <label>Escala de Afeto (-3 a +3)</label>
+    <input type="number" name="system.escalaAfeto" value="{{system.escalaAfeto}}" min="-3" max="3" />
+  </section>
+</form>
