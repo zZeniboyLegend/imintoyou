@@ -40,10 +40,10 @@
       "url": "systems/imintoyou/assets/capa-sistema.webp"
     }
   ],
-  "url": "https://github.com/SEU_USUARIO/NOME_DO_REPO",
-  "manifest": "https://github.com/SEU_USUARIO/NOME_DO_REPO/releases/latest/download/system.json",
-  "download": "https://github.com/SEU_USUARIO/NOME_DO_REPO/releases/download/v1.0.2/imintoyou-v1.0.2.zip",
+  "url": "https://github.com/zZeniboyLegend/imintoyou",
+  "manifest": "https://github.com/zZeniboyLegend/imintoyou/releases/latest/download/system.json",
+  "download": "https://github.com/zZeniboyLegend/imintoyou/releases/download/v1.0.2/imintoyou-v1.0.2.zip",
   "license": "LICENSE.txt",
-  "readme": "https://github.com/SEU_USUARIO/NOME_DO_REPO/blob/main/README.md",
-  "bugs": "https://github.com/SEU_USUARIO/NOME_DO_REPO/issues"
+  "readme": "https://github.com/zZeniboyLegend/imintoyou/blob/main/README.md",
+  "bugs": "https://github.com/zZeniboyLegend/imintoyou/issues"
 }
